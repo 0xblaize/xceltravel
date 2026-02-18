@@ -277,7 +277,9 @@ export default function WalletPage() {
   const { fundWallet } = useFundWallet();
 
   const evmAddress = wallets.find((w) => w.walletClientType === 'privy')?.address;
-  const solAddress = (user?.linkedAccounts?.find((a: any) => a.type === 'solana') as any)?.address;
+  const solAddress = (user?.linkedAccounts?.find(
+    (a: any) => a.type === 'wallet' && a.chainType === 'solana'
+  ) as any)?.address;
 
   const handleDeposit = async () => {
     if (!evmAddress) return;
@@ -358,28 +360,36 @@ export default function WalletPage() {
       
       {/* PC Header */}
       <header className="hidden md:flex items-center justify-between px-10 py-4 bg-white/80 dark:bg-[#050a12]/80 backdrop-blur-md border-b border-slate-100 dark:border-white/5 sticky top-0 z-50">
-        <div className="flex items-center gap-3 cursor-pointer shrink-0" onClick={() => router.push('/dashboard')}>
-          <div className="w-8 h-8 rounded-lg flex items-center justify-center overflow-hidden bg-[#d9a321] text-black font-bold">X</div>
-          <span className="font-bold text-xl text-[#d9a321] italic tracking-tighter uppercase">XcelTravel</span>
-        </div>
-        <nav className="absolute left-1/2 -translate-x-1/2 flex items-center gap-8">
-          <NavLink label="Dashboard" onClick={() => router.push('/dashboard')} active={pathname === '/dashboard'} />
-          <NavLink label="Events" onClick={() => router.push('/events')} active={pathname === '/events'} />
-          <NavLink label="Wallet" onClick={() => router.push('/wallet')} active={pathname === '/wallet'} />
-          <NavLink label="Social" onClick={() => router.push('/social')} active={pathname === '/social'} />
-          <NavLink label="Profile" onClick={() => router.push('/profile')} active={pathname === '/profile'} />
-        </nav>
-        <div className="flex items-center gap-4 shrink-0">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-gray-500" size={14} />
-            <input type="text" placeholder="Search..." className="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full py-1.5 pl-9 pr-4 text-xs text-slate-900 dark:text-white outline-none w-48 focus:border-[#d9a321] transition-all" />
-          </div>
-          <Bell className="text-slate-400 dark:text-gray-500 cursor-pointer hover:text-[#d9a321]" size={20} />
-          <div className="w-9 h-9 rounded-full border-2 border-[#d9a321] p-0.5 overflow-hidden cursor-pointer" onClick={() => router.push('/profile')}>
-            <img src={(user?.google as any)?.picture || "https://i.pravatar.cc/150?u=xcel"} alt="Profile" className="rounded-full w-full h-full object-cover" />
-          </div>
-        </div>
-      </header>
+                    <div className="flex items-center gap-3 cursor-pointer shrink-0" onClick={() => router.push('/dashboard')}>
+                      <div className="w-8 h-8 flex items-center justify-center overflow-hidden"> 
+                        <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" /> 
+                      </div>
+                      <span className="font-bold text-xl text-[#d9a321] italic tracking-tighter uppercase">XcelTravel</span>
+                    </div>
+                    
+                    <nav className="absolute left-1/2 -translate-x-1/2 flex items-center gap-8 text-sm font-medium text-slate-500 dark:text-gray-400">
+                      <button onClick={() => router.push('/dashboard')} className="hover:text-slate-900 dark:hover:text-white transition-colors">Dashboard</button>
+                      <button onClick={() => router.push('/events')} className="hover:text-slate-900 dark:hover:text-white transition-colors">Events</button>
+                      <button onClick={() => router.push('/wallet')} className="text-[#d9a321] border-b-2 border-[#d9a321] pb-1 font-bold">Wallet</button>
+                      <button onClick={() => router.push('/social')} className="hover:text-slate-900 dark:hover:text-white transition-colors">Social</button>
+                      <button onClick={() => router.push('/profile')} className="hover:text-slate-900 dark:hover:text-white transition-colors">Profile</button>
+                    </nav>
+            
+                    <div className="flex items-center gap-4 shrink-0">
+                      <div className="relative">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-gray-500" size={14} />
+                        <input 
+                          type="text" 
+                          placeholder="Search..." 
+                          className="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10  py-1.5 pl-9 pr-4 text-xs text-slate-900 dark:text-white outline-none w-48 focus:border-[#d9a321] transition-all" 
+                        />
+                      </div>
+                      <Bell className="text-slate-400 dark:text-gray-500 cursor-pointer hover:text-[#d9a321]" size={20} />
+                      <div className="w-9 h-9 border-2 border-[#f8f6f2] p-0.5 overflow-hidden rounded-full cursor-pointer" onClick={() => router.push('/profile')}>
+                        <img src="https://i.pravatar.cc/150?u=xcel" alt="Profile" className="l w-full h-full rounded-full  object-cover" />
+                      </div>
+                    </div>
+                  </header>
 
       {/* Mobile Top Bar */}
       <header className="md:hidden flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-white/10 bg-white dark:bg-[#050a12] sticky top-0 z-50">

@@ -1,0 +1,46 @@
+[debug] [2026-02-13T10:15:14.463Z] ----------------------------------------------------------------------
+[debug] [2026-02-13T10:15:14.468Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\USER\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2026-02-13T10:15:14.468Z] CLI Version:   15.6.0
+[debug] [2026-02-13T10:15:14.468Z] Platform:      win32
+[debug] [2026-02-13T10:15:14.469Z] Node Version:  v22.20.0
+[debug] [2026-02-13T10:15:14.469Z] Time:          Fri Feb 13 2026 11:15:14 GMT+0100 (West Africa Standard Time)
+[debug] [2026-02-13T10:15:14.469Z] ----------------------------------------------------------------------
+[debug] 
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\USER\xceltravel
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] 
+[debug] [2026-02-13T10:15:31.255Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-02-13T10:15:31.256Z] > authorizing via signed-in user (alawodechristopherdolapo2020@gmail.com)
+[debug] [2026-02-13T10:15:31.258Z] Checked if tokens are valid: true, expires at: 1770981171933
+[debug] [2026-02-13T10:15:31.258Z] Checked if tokens are valid: true, expires at: 1770981171933
+[debug] [2026-02-13T10:15:31.261Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/xcel-travel [none]
+[debug] [2026-02-13T10:15:32.424Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/xcel-travel 200
+[debug] [2026-02-13T10:15:32.425Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/xcel-travel {"projectId":"xcel-travel","projectNumber":"316975239173","displayName":"Xcel travel","name":"projects/xcel-travel","resources":{"hostingSite":"xcel-travel"},"state":"ACTIVE","etag":"1_8f66f5b5-1881-44bf-9855-2bcf915f804b"}
+[info] i  Using project xcel-travel (Xcel travel) . 
+[info] 
+=== App Hosting Setup
+[debug] [2026-02-13T10:15:32.460Z] Checked if tokens are valid: true, expires at: 1770981171933
+[debug] [2026-02-13T10:15:32.460Z] Checked if tokens are valid: true, expires at: 1770981171933
+[debug] [2026-02-13T10:15:32.461Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/xcel-travel/billingInfo [none]
+[debug] [2026-02-13T10:15:33.848Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/xcel-travel/billingInfo 200
+[debug] [2026-02-13T10:15:33.848Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/xcel-travel/billingInfo {"name":"projects/xcel-travel/billingInfo","projectId":"xcel-travel","billingAccountName":"","billingEnabled":false}
+[debug] [2026-02-13T10:15:38.857Z] Error: Timed out.
+    at Timeout._onTimeout (C:\Users\USER\AppData\Roaming\npm\node_modules\firebase-tools\lib\utils.js:308:49)
+    at listOnTimeout (node:internal/timers:588:17)
+    at process.processTimers (node:internal/timers:523:7)
+[error] 
+[error] Error: An unexpected error has occurred.

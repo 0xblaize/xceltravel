@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { getShieldColor } from "../../../lib/utils";
 import {
   ArrowLeft,
   MoreVertical,
@@ -56,12 +57,6 @@ export default function TrailTalkRoom() {
       isMe: true,
     },
   ];
-
-  const getShieldColor = (rank: string) => {
-    if (rank === "Gold") return "text-[#d9a321]";
-    if (rank === "Silver") return "text-slate-400";
-    return "text-amber-700"; // Bronze
-  };
 
   return (
     <div className="flex flex-col h-screen bg-slate-50 dark:bg-[#050a12] text-slate-900 dark:text-white font-sans">

@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import Navbar from "../components/Navbar";
+import BottomNav from "../components/BottomNav";
 import { Search, Bell, Home, Calendar, Wallet, Users } from "lucide-react";
 
 /* --- 1. SHARED UI COMPONENTS --- */
@@ -16,18 +18,6 @@ const NavLink = ({ label, onClick, active }: any) => (
   >
     {label}
   </button>
-);
-
-const MobileTab = ({ icon, label, active, onClick }: any) => (
-  <div
-    onClick={onClick}
-    className={`flex flex-col items-center gap-1 cursor-pointer transition-colors ${active ? "text-[#d9a321]" : "text-slate-400 dark:text-gray-500"}`}
-  >
-    {React.cloneElement(icon, { strokeWidth: active ? 3 : 2 })}
-    <span className="text-[9px] font-black uppercase tracking-tighter">
-      {label}
-    </span>
-  </div>
 );
 
 const EventCard = ({ title, img, price, host, type }: any) => (
@@ -136,97 +126,7 @@ export default function EventsPage() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#050a12] text-slate-900 dark:text-white selection:bg-[#d9a321] pb-24 md:pb-10 transition-colors duration-300">
-      {/* --- PC HEADER --- */}
-      <header className="hidden md:flex items-center justify-between px-10 py-4 bg-white/80 dark:bg-[#050a12]/80 backdrop-blur-md border-b border-slate-100 dark:border-white/5 sticky top-0 z-50">
-        <div
-          className="flex items-center gap-3 cursor-pointer shrink-0"
-          onClick={() => router.push("/dashboard")}
-        >
-          <div className="w-8 h-8 flex items-center justify-center overflow-hidden">
-            <img
-              src="/logo.png"
-              alt="Logo"
-              className="w-full h-full object-contain"
-            />
-          </div>
-          <span className="font-bold text-xl text-[#d9a321] italic tracking-tighter uppercase">
-            XcelTravel
-          </span>
-        </div>
-
-        <nav className="absolute left-1/2 -translate-x-1/2 flex items-center gap-8 text-sm font-medium text-slate-500 dark:text-gray-400">
-          <button
-            onClick={() => router.push("/dashboard")}
-            className="hover:text-slate-900 dark:hover:text-white transition-colors"
-          >
-            Dashboard
-          </button>
-          <button
-            onClick={() => router.push("/events")}
-            className="text-[#d9a321] border-b-2 border-[#d9a321] pb-1 font-bold"
-          >
-            Events
-          </button>
-          <button
-            onClick={() => router.push("/wallet")}
-            className="hover:text-slate-900 dark:hover:text-white transition-colors"
-          >
-            Wallet
-          </button>
-          <button
-            onClick={() => router.push("/social")}
-            className="hover:text-slate-900 dark:hover:text-white transition-colors"
-          >
-            Social
-          </button>
-          <button
-            onClick={() => router.push("/profile")}
-            className="hover:text-slate-900 dark:hover:text-white transition-colors"
-          >
-            Profile
-          </button>
-        </nav>
-
-        <div className="flex items-center gap-4 shrink-0">
-          <div className="relative">
-            <Search
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-gray-500"
-              size={14}
-            />
-            <input
-              type="text"
-              placeholder="Search..."
-              className="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10  py-1.5 pl-9 pr-4 text-xs text-slate-900 dark:text-white outline-none w-48 focus:border-[#d9a321] transition-all"
-            />
-          </div>
-          <Bell
-            className="text-slate-400 dark:text-gray-500 cursor-pointer hover:text-[#d9a321]"
-            size={20}
-          />
-          <div
-            className="w-9 h-9 border-2 border-[#f8f6f2] p-0.5 overflow-hidden rounded-full cursor-pointer"
-            onClick={() => router.push("/profile")}
-          >
-            <img
-              src="https://i.pravatar.cc/150?u=xcel"
-              alt="Profile"
-              className="l w-full h-full rounded-full  object-cover"
-            />
-          </div>
-        </div>
-      </header>
-
-      {/* --- MOBILE TOP BAR --- */}
-      <header className="md:hidden flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-white/10 bg-white dark:bg-[#050a12] sticky top-0 z-50">
-        <div className="w-8 h-8 rounded-lg flex items-center justify-center">
-          {" "}
-          <img src="/logo.png" alt="Logo" />{" "}
-        </div>
-        <span className="font-bold text-[#d9a321] italic tracking-tighter uppercase">
-          XcelTravel
-        </span>
-        <Bell className="text-slate-400 dark:text-gray-400" size={20} />
-      </header>
+      <Navbar />
 
       {/* --- PAGE CONTENT --- */}
       <main className="max-w-7xl mx-auto p-4 md:p-10">
@@ -303,54 +203,7 @@ export default function EventsPage() {
         </div>
       </main>
 
-      {/* --- MOBILE BOTTOM NAV --- */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-[#050a12]/95 backdrop-blur-xl border-t border-slate-100 dark:border-white/5 px-2 py-4 z-50">
-        <div className="grid grid-cols-5 items-center justify-items-center">
-          <MobileTab
-            icon={<Home size={20} />}
-            label="Home"
-            active={pathname === "/dashboard"}
-            onClick={() => router.push("/dashboard")}
-          />
-          <MobileTab
-            icon={<Calendar size={20} />}
-            label="Events"
-            active={pathname === "/events"}
-            onClick={() => router.push("/events")}
-          />
-          <MobileTab
-            icon={<Wallet size={20} />}
-            label="Wallet"
-            active={pathname === "/wallet"}
-            onClick={() => router.push("/wallet")}
-          />
-          <MobileTab
-            icon={<Users size={20} />}
-            label="Social"
-            active={pathname === "/social"}
-            onClick={() => router.push("/social")}
-          />
-          <div
-            onClick={() => router.push("/profile")}
-            className="flex flex-col items-center gap-1 cursor-pointer"
-          >
-            <div
-              className={`w-7 h-7 rounded-full border-2 transition-all ${pathname === "/profile" ? "border-[#d9a321]" : "border-slate-200 dark:border-gray-600"}`}
-            >
-              <img
-                src="https://i.pravatar.cc/150?u=xcel"
-                alt="Me"
-                className="w-full h-full object-cover rounded-full"
-              />
-            </div>
-            <span
-              className={`text-[9px] font-black uppercase tracking-tighter ${pathname === "/profile" ? "text-[#d9a321]" : "text-slate-400 dark:text-gray-500"}`}
-            >
-              Me
-            </span>
-          </div>
-        </div>
-      </nav>
+      <BottomNav />
     </div>
   );
 }

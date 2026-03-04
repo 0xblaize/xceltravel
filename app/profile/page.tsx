@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Navbar from "../components/Navbar";
+import BottomNav from "../components/BottomNav";
 import { auth, db } from "@/lib/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
@@ -49,55 +51,18 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#050a12] text-slate-900 dark:text-white selection:bg-[#d9a321] pb-24 md:pb-10 transition-colors duration-300">
-      
-      {/* --- 1. UNIFIED TOP NAVBAR --- */}
-      <header className="hidden md:flex items-center justify-between px-10 py-4 bg-white/80 dark:bg-[#050a12]/80 backdrop-blur-md border-b border-slate-100 dark:border-white/5 sticky top-0 z-50">
-        <div className="flex items-center gap-3 cursor-pointer shrink-0" onClick={() => router.push("/dashboard")}>
-          <div className="w-8 h-8 rounded-lg flex items-center justify-center overflow-hidden">
-            <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
-          </div>
-          <span className="font-bold text-xl text-[#d9a321] italic tracking-tighter uppercase">XcelTravel</span>
-        </div>
-
-        <nav className="absolute left-1/2 -translate-x-1/2 flex items-center gap-8 text-sm font-medium text-slate-500 dark:text-gray-400">
-          <button onClick={() => router.push("/dashboard")} className="hover:text-slate-900 dark:hover:text-white transition-colors">Dashboard</button>
-          <button onClick={() => router.push("/events")} className="hover:text-slate-900 dark:hover:text-white transition-colors">Events</button>
-          <button onClick={() => router.push("/wallet")} className="hover:text-slate-900 dark:hover:text-white transition-colors">Wallet</button>
-          <button className="hover:text-slate-900 dark:hover:text-white transition-colors">Social</button>
-          <button onClick={() => router.push("/profile")} className="text-[#d9a321] border-b-2 border-[#d9a321] pb-1 font-bold">Profile</button>
-        </nav>
-
-        <div className="flex items-center gap-4 shrink-0">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-gray-500" size={14} />
-            <input
-              type="text"
-              placeholder="Search..."
-              className="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full py-1.5 pl-9 pr-4 text-xs text-slate-900 dark:text-white outline-none w-48 focus:border-[#d9a321] transition-all"
-            />
-          </div>
-          <Bell className="text-slate-400 dark:text-gray-500 cursor-pointer hover:text-[#d9a321]" size={20} />
-          <div className="w-9 h-9 rounded-full border-2 border-[#d9a321] p-0.5 overflow-hidden cursor-pointer" onClick={() => router.push("/profile")}>
-            <img src="https://i.pravatar.cc/150?u=xcel" alt="Profile" className="rounded-full w-full h-full object-cover" />
-          </div>
-        </div>
-      </header>
-
-      {/* --- MOBILE TOP NAV --- */}
-      <header className="md:hidden flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-white/10 bg-white dark:bg-[#050a12] sticky top-0 z-50">
-        <div className="w-8 h-8 rounded-lg flex items-center justify-center">
-          <img src="/logo.png" alt="Logo" />
-        </div>
-        <span className="font-bold text-[#d9a321] italic tracking-tighter uppercase">XcelTravel</span>
-        <Bell className="text-slate-400 dark:text-gray-400" size={20} />
-      </header>
+      <Navbar />
 
       <main className="max-w-1100px mx-auto px-6 py-10">
         {/* --- USER HEADER & SHARE --- */}
         <div className="flex flex-col md:flex-row items-center md:items-start gap-8 mb-12">
           <div className="relative">
             <div className="w-32 h-32 md:w-36 md:h-36 rounded-full border-4 border-[#d9a321] overflow-hidden shadow-2xl">
-              <img src="https://i.pravatar.cc/300?u=xcel" className="w-full h-full object-cover" alt="Profile avatar" />
+              <img
+                src="https://i.pravatar.cc/300?u=xcel"
+                className="w-full h-full object-cover"
+                alt="Profile avatar"
+              />
             </div>
             <div className="absolute bottom-2 right-2 w-6 h-6 bg-green-500 border-4 border-white dark:border-[#050a12] rounded-full"></div>
           </div>
@@ -120,9 +85,18 @@ export default function ProfilePage() {
 
               {showShareMenu && (
                 <div className="flex gap-2 animate-in fade-in slide-in-from-left-4 duration-300">
-                  <ShareIcon icon={<Twitter size={14} />} color="hover:bg-[#1DA1F2]" />
-                  <ShareIcon icon={<Facebook size={14} />} color="hover:bg-[#4267B2]" />
-                  <ShareIcon icon={<LinkIcon size={14} />} color="hover:bg-slate-400 dark:hover:bg-white/20" />
+                  <ShareIcon
+                    icon={<Twitter size={14} />}
+                    color="hover:bg-[#1DA1F2]"
+                  />
+                  <ShareIcon
+                    icon={<Facebook size={14} />}
+                    color="hover:bg-[#4267B2]"
+                  />
+                  <ShareIcon
+                    icon={<LinkIcon size={14} />}
+                    color="hover:bg-slate-400 dark:hover:bg-white/20"
+                  />
                 </div>
               )}
             </div>
@@ -131,8 +105,15 @@ export default function ProfilePage() {
 
         {/* --- DENSE STATS GRID --- */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <StatCard label="Number of Friends" value={userData?.friendsCount || "128"} />
-          <StatCard label="Total Balance" value={`$${userData?.totalBalance?.toLocaleString() || "1,250.75"} USD`} hasToggle />
+          <StatCard
+            label="Number of Friends"
+            value={userData?.friendsCount || "128"}
+          />
+          <StatCard
+            label="Total Balance"
+            value={`$${userData?.totalBalance?.toLocaleString() || "1,250.75"} USD`}
+            hasToggle
+          />
         </div>
 
         {/* --- TRAILSCORE PROGRESS --- */}
@@ -141,7 +122,10 @@ export default function ProfilePage() {
             <Activity size={20} strokeWidth={3} /> Trailscore Progress
           </h3>
           <div className="w-full bg-slate-200 dark:bg-white/10 h-3.5 rounded-full overflow-hidden mb-4">
-            <div className="bg-[#d9a321] h-full shadow-[0_0_15px_rgba(217,163,33,0.4)]" style={{ width: "51%" }} />
+            <div
+              className="bg-[#d9a321] h-full shadow-[0_0_15px_rgba(217,163,33,0.4)]"
+              style={{ width: "51%" }}
+            />
           </div>
           <div className="flex justify-between text-[11px] font-black text-slate-400 dark:text-gray-500 uppercase tracking-widest">
             <span>2530 / 5000 XP</span>
@@ -155,40 +139,26 @@ export default function ProfilePage() {
             Recent Activity
           </h3>
           <div className="space-y-1">
-            <ActivityRow icon={<Plane size={16} />} text="Booked a flight to Paris, France." time="2 hours ago" />
-            <ActivityRow icon={<Award size={16} />} text="Earned 'Frequent Flyer' badge." time="1 day ago" />
-            <ActivityRow icon={<RefreshCw size={16} />} text="Exchanged $500 USD to 0.01 BTC." time="3 days ago" />
+            <ActivityRow
+              icon={<Plane size={16} />}
+              text="Booked a flight to Paris, France."
+              time="2 hours ago"
+            />
+            <ActivityRow
+              icon={<Award size={16} />}
+              text="Earned 'Frequent Flyer' badge."
+              time="1 day ago"
+            />
+            <ActivityRow
+              icon={<RefreshCw size={16} />}
+              text="Exchanged $500 USD to 0.01 BTC."
+              time="3 days ago"
+            />
           </div>
         </section>
       </main>
 
-      {/* --- MOBILE BOTTOM NAV --- */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-[#050a12]/95 backdrop-blur-xl border-t border-slate-100 dark:border-white/5 px-2 py-4 z-50">
-        <div className="grid grid-cols-5 items-center justify-items-center">
-          <div onClick={() => router.push("/dashboard")} className="flex flex-col items-center gap-1 text-slate-400 dark:text-gray-500 cursor-pointer">
-            <Home size={20} />
-            <span className="text-[9px] font-black uppercase tracking-tighter">Home</span>
-          </div>
-          <div className="flex flex-col items-center gap-1 text-slate-400 dark:text-gray-500 cursor-pointer">
-            <Search size={20} />
-            <span className="text-[9px] font-black uppercase tracking-tighter">Search</span>
-          </div>
-          <div onClick={() => router.push("/wallet")} className="flex flex-col items-center gap-1 text-slate-400 dark:text-gray-500 cursor-pointer">
-            <Wallet size={20} />
-            <span className="text-[9px] font-black uppercase tracking-tighter">Wallet</span>
-          </div>
-          <div onClick={() => router.push("/social")} className="flex flex-col items-center gap-1 text-slate-400 dark:text-gray-500 cursor-pointer">
-            <Users size={20} strokeWidth={3} />
-            <span className="text-[9px] font-black uppercase tracking-tighter">Social</span>
-          </div>
-          <div onClick={() => router.push("/profile")} className="flex flex-col items-center gap-1 cursor-pointer">
-            <div className="w-7 h-7 rounded-full border-2 border-[#d9a321] overflow-hidden">
-              <img src="https://i.pravatar.cc/150?u=xcel" alt="Profile" className="w-full h-full object-cover" />
-            </div>
-            <span className="text-[9px] font-black uppercase tracking-tighter text-[#d9a321]">Me</span>
-          </div>
-        </div>
-      </nav>
+      <BottomNav />
     </div>
   );
 }
@@ -224,8 +194,12 @@ const ActivityRow = ({ icon, text, time }: any) => (
       {icon}
     </div>
     <div className="flex-1">
-      <p className="text-sm font-semibold text-slate-700 dark:text-gray-200 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">{text}</p>
-      <p className="text-xs text-slate-400 dark:text-gray-500 font-medium italic">{time}</p>
+      <p className="text-sm font-semibold text-slate-700 dark:text-gray-200 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
+        {text}
+      </p>
+      <p className="text-xs text-slate-400 dark:text-gray-500 font-medium italic">
+        {time}
+      </p>
     </div>
   </div>
 );
